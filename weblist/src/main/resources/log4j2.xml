@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	configDebug="true">
+	<Appenders>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<RollingFile name="FILE" fileName="logs/database.log" filePattern="logs/database-%i.log">
+			<PatternLayout>
+				<pattern>%d{dd/MMM/yyyy HH:mm:ss,SSS}- %c{1}: %m%n</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="1 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<logger name="databaseLogger" level="INFO" additivity="false">
+			<AppenderRef ref="FILE" />
+		</logger>
+		
+		<logger name="ee.itcollege" level="TRACE" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+		</logger>
+	
+		<logger name="org.apache.wicket" level="WARN" additivity="false">
+			<AppenderRef ref="CONSOLE" />
+		</logger>
+		<Root level="WARN">
+			<AppenderRef ref="CONSOLE" />
+		</Root>
+	</Loggers>
+</log4j:configuration>
